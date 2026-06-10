@@ -1,0 +1,26 @@
+# dependencies & build output
+node_modules/
+out/
+dist/
+.DS_Store
+
+# secrets — NEVER commit (see PLAN.md Security Concerns)
+.env
+.env.*
+
+# local data: the library index is personal data, and audio is copyrighted
+*.sqlite
+*.sqlite-journal
+*.db
+*.mp3
+*.wav
+*.flac
+
+# large model binaries (re-fetched by app/scripts/fetch-models.mjs)
+*.onnx
+
+# internal session/working docs — not part of the public source
+HANDOFF.md
+
+# local Claude Code settings
+.claude/

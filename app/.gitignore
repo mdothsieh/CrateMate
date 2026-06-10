@@ -1,0 +1,22 @@
+# dependencies & build output
+node_modules/
+out/
+dist/
+
+# secrets — NEVER commit (see PLAN.md Security Concerns)
+.env
+.env.*
+
+# local data: the user's library index is personal data, and audio is copyrighted
+*.sqlite
+*.sqlite-journal
+*.db
+*.mp3
+*.wav
+*.flac
+
+# large model binaries (re-downloaded by scripts/fetch-models)
+*.onnx
+
+# OS noise
+.DS_Store
