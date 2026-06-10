@@ -24,3 +24,6 @@ HANDOFF.md
 
 # local Claude Code settings
 .claude/
+
+# local screenshots / scratch images
+Screenshot*.png
