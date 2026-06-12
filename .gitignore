@@ -27,3 +27,9 @@ HANDOFF.md
 
 # local screenshots / scratch images
 Screenshot*.png
+
+# eval set: contains artist/title/file paths from the personal library
+# (public repo — only eval/RESULTS.md aggregates are committed)
+eval/pairs.json
+eval/labels.json
+eval/queries.txt

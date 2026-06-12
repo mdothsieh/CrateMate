@@ -1,7 +1,7 @@
 # CrateMate — Architecture (living document)
 
 > Updated whenever the structure changes. If code and this doc disagree, the doc is wrong — fix the doc.
-> Last updated: 2026-06-10 (Phase 1: indexing + find-similar + crate export built)
+> Last updated: 2026-06-12 (Phase 1: indexing + find-similar + crate export + eval harness)
 
 ## The 30-second picture
 
@@ -43,6 +43,7 @@ app/
 ├── src/
 │   ├── shared/ipc.ts          ★ THE contract: every channel + its types
 │   ├── shared/camelot.ts      key-notation funnel: everything → Camelot
+│   ├── shared/scoring.ts      pure similarity math: WEIGHTS, scorePair, rankCandidates
 │   ├── main/index.ts          backend entry: window, security policy, handlers
 │   ├── main/library/          db.ts (SQLite) · indexer.ts (worker pool) · similar.ts (ranking)
 │   ├── main/analysis/         worker.ts: ffmpeg → essentia.js mel → ONNX embedding
@@ -96,6 +97,22 @@ reader, including CJK filenames. Safety properties, enforced in code:
   inject arbitrary strings into a playlist file
 - a `.m3u8` sibling (UTF-8, `#EXTINF` metadata from the DB) is written next
   to every `.crate` for non-Serato players
+
+## Eval harness (lives at repo root: `../eval/`)
+
+The similarity math was extracted from `main/library/similar.ts` into
+`shared/scoring.ts` (pure: no DB, no Electron, no Node APIs) so the eval
+scripts measure the EXACT ranking code the app ships. `similar.ts` is now
+just the Electron wrapper: SQLite rows in → `rankCandidates()` → reason
+chips out.
+
+The harness runs under plain `node` (native TS type stripping — hence the
+explicit `.ts` import extensions in `scoring.ts` and `allowImportingTsExtensions`
+in tsconfig) and reads the same SQLite file via Node's built-in `node:sqlite`,
+read-only — the app's `better-sqlite3` is Electron-ABI and won't load there.
+Workflow, metrics, and design rationale: `../eval/README.md`. Tests:
+`node --test eval/test/scoring.test.ts eval/test/metrics.test.ts` (these pin
+the scorer's numeric behavior — the parity guard for the extraction).
 
 ## How to run
 

@@ -229,7 +229,7 @@ Real libraries are full of **duplicates, remixes, edits, and messy tags**, and s
 - [x] ⭐ Basic **track-identity dedup** (normalized artist+title) *(2026-06-10: in `similar.ts` — strips (SPOTISAVER)/[site] junk; duration check + Chromaprint still future)*
 - [x] ⭐ Drag-and-drop an MP3 → ranked "similar/mixable" list **with the reason shown** *(2026-06-10: reason chips = vibe % / BPM w/ half-double / Camelot / energy; weights style .45 bpm .30 key .15 energy .10, ALL soft per genre caveat; on-the-fly analysis for new files. **Subjective quality verdict from user still pending**)*
 - [x] ⭐ Export a Serato `.crate` (and `.m3u8`) *(2026-06-10: `serato/crate-export.ts` — write-side TLV mirroring the reader, byte-structure matches real crates, round-trip parsed incl. CJK paths; atomic writes, `_Serato_` destinations refused, DB-validated paths only. **User must verify: import an exported crate into Serato**)*
-- [ ] ⭐ **Eval harness**: ~30–50 labeled pairs → precision@5 + harmonic/BPM rates ← **NEXT TO BUILD** (user labels pairs)
+- [x] ⭐ **Eval harness**: ~30–50 labeled pairs → precision@5 + harmonic/BPM rates *(2026-06-12: `eval/` at repo root — sample/label/metrics/tune scripts on plain Node via `node:sqlite` read-only; scoring math extracted to `app/src/shared/scoring.ts` so app + eval share one implementation, pinned by 14 unit tests; pairs/labels gitignored, RESULTS.md anonymized. **User must label: `node eval/label.ts` — 70 pairs generated**)*
 - [ ] ⭐ Verify on a real personal MP3 folder; tune weights against the eval *(full library indexed 2026-06-10: 1,664 tracks, 100% embedded+BPM+key — 1,223 Serato, 441 Essentia; weight tuning awaits the eval harness)*
 
 ### Phase 2 — Serato companion widget (the new core feature)
